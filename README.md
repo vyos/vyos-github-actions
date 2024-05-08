@@ -41,14 +41,6 @@ jobs:
       languages: "['python']"
 ```
 
-
-**Inputs**:
-
-- _languages_: Optional input , 'typescript', 'python', 'ruby'. To set multiple languages, use the same syntax as you can see in the default value.
-- _codeql-cfg-path_: Optional input to set path to a CodeQL config file.
-- _build-command_: Optional input to specify manual build command. The multiline syntax is supported
-
-
 <!-- end usage -->
 <!-- start inputs -->
 
@@ -56,7 +48,7 @@ jobs:
 | ---------------------- | ---------------------------------------------------------------------------------------------- | ---------------| ------------- |
 | **`languages`**        | Languages for CodeQL check. Supported values are: 'cpp', 'csharp', 'go', 'java', 'javascript'  | **['python']** | **false**     |
 | **`codeql-cfg-path`**  | Path to a CodeQL config file                                                                   |                | **false**     |
-| **`build-command`**    | Manual build command                                                                           |                | **false**     |
+| **`build-command`**    | Manual build command.  The multiline syntax is supported                                       |                | **false**     |
 
 <!-- end inputs -->
 Referenece:
