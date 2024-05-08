@@ -11,7 +11,7 @@ on:
 jobs:
   j2lint:
     name: Validate j2 files
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         timeout-minutes: 2
