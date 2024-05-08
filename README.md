@@ -4,8 +4,9 @@
 
 This keeps all the reusable github action workflows for vyos
 
-**codeql-analysis**:
-This performs codeql analysis on the invoking repo using given inputs.
+## codeql-analysis ##
+
+This reusable workflow performs codeql analysis on the invoking repo using given inputs.
 
 This performs below:
 
