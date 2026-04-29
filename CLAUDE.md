@@ -39,7 +39,3 @@ Mirror twin: `VyOS-Networks/vyos-github-actions`. Mirror pipeline not confirmed 
 - **New reusable workflows belong in `vyos/.github`, not here.** Add them at `vyos/.github/.github/workflows/<name>.yml` on `current`.
 - Before deleting a workflow from this repo, grep `vyos/*` and `VyOS-Networks/*` consumers for `uses: vyos/vyos-github-actions/...` — some legacy repos may still be pinned here.
 - The `scripts/override-default` and `scripts/transclude-template` are kept in sync with the copies in `vyos/.github/scripts/`. If you change one, change the other (or migrate fully to `vyos/.github`).
-
----
-
-This file is mirrored on Confluence: [`vyos/vyos-github-actions`](https://internal.confluence.vyos.com/wiki/spaces/VYOS/pages/818020670). The Confluence page also carries the per-repo audit data (settings, workflows, secret counts, hygiene) that complements this CLAUDE.md. Edit either side; resync via the documentation pipeline.
