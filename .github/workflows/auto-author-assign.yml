@@ -17,11 +17,38 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
   # https://github.com/shufo/auto-assign-reviewer-by-files
+  #
+  # Auth: mint a vyos-bot[bot] App-installation token via the central
+  # composite action at vyos/.github/.github/actions/get-token@current.
+  # Replaces the prior classic PAT (secrets.PR_ACTION_ASSIGN_REVIEWERS)
+  # which the VyOS-Networks enterprise rejects because its lifetime
+  # exceeds the 90-day cap on classic PATs ("The 'VyOS Networks'
+  # enterprise forbids access via a personal access tokens (classic)
+  # if the token's lifetime is greater than 90 days").
+  #
+  # vyos-bot App permissions include `pull_requests: read+write`, which
+  # is sufficient for shufo/auto-assign-reviewer-by-files to assign
+  # reviewers and read the team-based config in .github/reviewers.yml.
+  # See https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/authenticating-as-a-github-app-installation
+  # for documentation on GitHub App installation tokens.
   assign_reviewer:
     runs-on: ubuntu-latest
     steps:
+      - name: Mint vyos-bot installation token
+        id: token
+        uses: vyos/.github/.github/actions/get-token@current
+        with:
+          owner: vyos
+          client-id: ${{ vars.APP_CLIENT_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          # Scope the minted token down to only what shufo needs
+          # (assigning reviewers via the Pull Requests API).
+          # Defense in depth: pull_request_target events expose secrets,
+          # so the narrower the token, the smaller the blast radius if
+          # the downstream action is ever compromised.
+          permissions: '{"pull_requests":"write"}'
       - name: Request review based on files changes and/or groups the author belongs to
         uses: shufo/auto-assign-reviewer-by-files@v1.1.4
         with:
-          token: ${{ secrets.PR_ACTION_ASSIGN_REVIEWERS }}
+          token: ${{ steps.token.outputs.token }}
           config: .github/reviewers.yml
