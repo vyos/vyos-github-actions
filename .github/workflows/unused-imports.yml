@@ -19,4 +19,17 @@ jobs:
           python -m pip install --upgrade pip
           pip install pylint
       - name: Analysing the code with pylint
-        run:  make unused-imports
+        # Original line was `make unused-imports` but this repo has no
+        # Makefile (the target appears to have been copy-pasted from
+        # vyos/vyos-1x which does define it). Invoke pylint directly,
+        # enabling only W0611 (unused-import) per the workflow's intent.
+        # `git ls-files -z` emits NUL-delimited paths so any future
+        # Python file with whitespace in its path is handled safely.
+        run: |
+          if ! git ls-files '*.py' | grep -q .; then
+            echo "No Python files tracked; nothing to check."
+            exit 0
+          fi
+          echo "Checking files:"
+          git ls-files '*.py'
+          git ls-files -z '*.py' | xargs -0 pylint --disable=all --enable=W0611
