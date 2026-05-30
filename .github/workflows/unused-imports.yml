@@ -2,7 +2,7 @@ name: Check for unused imports using Pylint
 on:
   pull_request_target:
     branches:
-      - current
+      - production
       - sagitta
 
 jobs:
