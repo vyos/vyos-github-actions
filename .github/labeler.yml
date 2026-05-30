@@ -3,7 +3,7 @@ equuleus:
     - base-branch: 'equuleus'
 current:
   - any:
-    - base-branch: 'current'
+    - base-branch: 'production'
 sagitta:
   - any:
     - base-branch: 'sagitta'
